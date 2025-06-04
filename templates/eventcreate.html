@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Event - EventMax</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Livvic:wght@900&family=Poppins:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- Below is my Header section which contains site branding and navigation -->
+  <header>
+    <div class="logo">EventMax</div>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('concerts') }}">Concerts</a>
+      <a href="{{ url_for('sports') }}">Sports</a>
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('signup') }}">Signup</a>
+      <a href="{{ url_for('create_event') }}">Create</a>
+    </nav>
+  </header>
+
+  <!-- Main container for the Create Event form -->
+  <div class="container">
+    <h2>Create Event</h2>
+
+    <div class="form-group">
+      <label>Title of the Event</label>
+      <input type="text" placeholder="Internal name of the event (only you can see this)">
+    </div>
+
+    <div class="row-inline">
+      <label>Timings:</label>
+      <input type="date"> <input type="time"> to <input type="time"> <input type="date">
+    </div>
+
+    <div class="row-inline">
+      <label>Notify User</label>
+      <input type="number" value="30" min="0"> min before the event begins
+    </div>
+
+    <div class="row-inline">
+      <label><input type="checkbox"> All Day</label>
+      <label><input type="checkbox"> Recurring</label>
+      <label><input type="checkbox"> RSVP</label>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Location of your event</label>
+      <input type="text">
+    </div>
+
+    <div class="row-inline">
+      <input type="text" placeholder="First Name">
+      <input type="text" placeholder="Last Name">
+    </div>
+
+    <div class="calendar-section">
+      <p><strong>Calendar</strong>: Main calendar</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Calendar_icon_2022.svg/200px-Calendar_icon_2022.svg.png" width="120" alt="Calendar placeholder">
+    </div>
+
+    <div class="form-group">
+      <label>Pricing</label>
+      <input type="text" value="129.95">
+    </div>
+
+    <div class="buttons">
+      <button class="btn btn-primary">Create</button>
+      <button class="btn btn-danger">Cancel</button>
+    </div>
+  </div>
+
+  <!-- This is my Footer Section -->
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="eventmax-logo footer-logo">
+          <span class="event">Event</span>
+          <span class="max">Max</span>
+        </div>
+      </div>
+
+      <div class="footer-sections">
+        <div class="footer-section">
+          <b class="section-title">Product</b>
+          <ul class="section-list">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Career</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Special Offers</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <b class="section-title">Help</b>
+          <ul class="section-list">
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <b class="section-title">Partner</b>
+          <ul class="section-list">
+            <li><a href="#">Partner Hub</a></li>
+            <li><a href="#">Affiliates</a></li>
+            <li><a href="#">Advertise</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subscribe-section">
+        <b class="subscribe-title">Subscribe</b>
+        <div class="subscription-box">
+          <input type="email" placeholder="Email address" class="subscribe-input">
+          <button class="btn btn-secondary">→</button>
+        </div>
+      </div>
+
+      <div class="social-icons">
+        <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-terms">
+      <span><a href="#">Terms</a></span>
+      <span><a href="#">Privacy</a></span>
+      <span><a href="#">Cookies</a></span>
+    </div>
+  </div>
+
+  <!-- Link to the external JavaScript file for interactive functionality. -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

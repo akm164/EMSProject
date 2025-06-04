@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Seat & Group Ticket Selection - EventMax</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Livvic:wght@900&family=Poppins:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="logo">EventMax</div>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('concerts') }}">Concerts</a>
+        <a href="{{ url_for('sports') }}">Sports</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('signup') }}">Signup</a>
+        <a href="{{ url_for('create_event') }}">Create</a>
+    </nav>
+  </header>
+  <!-- Main content: Seat map and ticket selection controls -->
+  <div class="container">
+    <h2>Select Your Seats</h2>
+
+    <div class="seat-map" id="seatMap"></div>
+    <div class="selected-info" id="selectedSeat">No seats selected</div>
+
+    <div class="ticket-box">
+      <h3>Ticket Selection</h3>
+      <!-- Radio buttons to choose between General Admission and VIP -->
+      <div class="form-group">
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="ticketType" value="General" checked>
+            <span class="radio-custom"></span>
+            General Admission
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="ticketType" value="VIP">
+            <span class="radio-custom"></span>
+            VIP Experience
+          </label>
+        </div>
+      </div>
+      <!-- Group selection fields for Adults Families and Kids -->
+      <div class="form-group">
+        <label>Adults:</label>
+        <input type="number" class="form-control" id="adults" value="0" min="0">
+      </div>
+
+      <div class="form-group">
+        <label>Family (3 people):</label>
+        <input type="number" class="form-control" id="families" value="0" min="0">
+      </div>
+
+      <div class="form-group">
+        <label>Kids:</label>
+        <input type="number" class="form-control" id="kids" value="0" min="0">
+      </div>
+
+      <div class="buttons">
+        <button class="btn btn-primary" id="continueBtn" disabled onclick="continueToPayment()">
+          Continue to Payment <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="eventmax-logo footer-logo">
+          <span class="event">Event</span>
+          <span class="max">Max</span>
+        </div>
+      </div>
+
+      <div class="footer-sections">
+        <div class="footer-section">
+          <b class="section-title">Product</b>
+          <ul class="section-list">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Career</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Special Offers</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <b class="section-title">Help</b>
+          <ul class="section-list">
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <b class="section-title">Partner</b>
+          <ul class="section-list">
+            <li><a href="#">Partner Hub</a></li>
+            <li><a href="#">Affiliates</a></li>
+            <li><a href="#">Advertise</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subscribe-section">
+        <b class="subscribe-title">Subscribe</b>
+        <div class="subscription-box">
+          <input type="email" placeholder="Email address" class="subscribe-input">
+          <button class="btn btn-secondary">→</button>
+        </div>
+      </div>
+
+      <div class="social-icons">
+        <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-terms">
+      <span><a href="#">Terms</a></span>
+      <span><a href="#">Privacy</a></span>
+      <span><a href="#">Cookies</a></span>
+    </div>
+  </div>
+  <!-- Core script files and inline JavaScript for seat selection logic -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+    const seatMap = document.getElementById("seatMap");
+    const selectedSeatDisplay = document.getElementById("selectedSeat");
+    const continueBtn = document.getElementById("continueBtn");
+    const totalSeats = 60;
+    const occupiedSeats = [4, 7, 15, 28, 39];
+    let selectedSeats = [];
+
+  function getSelectedTicketType() {
+    return document.querySelector('input[name="ticketType"]:checked').value;
+  }
+
+  function getMaxSelectableSeats() {
+    const adults = parseInt(document.getElementById("adults").value) || 0;
+    const families = parseInt(document.getElementById("families").value) || 0;
+    const kids = parseInt(document.getElementById("kids").value) || 0;
+    return adults + (families * 3) + kids;
+  }
+
+  function updateSeatDisplay() {
+    if (selectedSeats.length === 0) {
+      selectedSeatDisplay.textContent = "No seats selected";
+    } else {
+      selectedSeatDisplay.textContent = `Selected Seats: ${selectedSeats.join(", ")}`;
+    }
+    continueBtn.disabled = selectedSeats.length !== getMaxSelectableSeats();
+  }
+
+  for (let i = 1; i <= totalSeats; i++) {
+    const seat = document.createElement("div");
+    seat.classList.add("seat");
+    seat.textContent = i;
+
+    if (i <= totalSeats / 2) {
+      seat.classList.add("general");
+    } else {
+      seat.classList.add("vip");
+    }
+
+    if (occupiedSeats.includes(i)) {
+      seat.classList.add("occupied");
+    } else {
+      seat.addEventListener("click", () => {
+        const selectedType = getSelectedTicketType().toLowerCase();
+        if (!seat.classList.contains(selectedType)) {
+          alert(`Please select a ${selectedType.charAt(0).toUpperCase() + selectedType.slice(1)} seat.`);
+          return;
+        }
+
+        const seatNum = parseInt(seat.textContent);
+        const index = selectedSeats.indexOf(seatNum);
+        if (index > -1) {
+          selectedSeats.splice(index, 1);
+          seat.classList.remove("selected");
+        } else if (selectedSeats.length < getMaxSelectableSeats()) {
+          selectedSeats.push(seatNum);
+          seat.classList.add("selected");
+        }
+        updateSeatDisplay();
+      });
+    }
+
+    seatMap.appendChild(seat);
+  }
+
+  document.getElementById("adults").addEventListener("input", updateSeatDisplay);
+  document.getElementById("families").addEventListener("input", updateSeatDisplay);
+  document.getElementById("kids").addEventListener("input", updateSeatDisplay);
+  document.querySelectorAll('input[name="ticketType"]').forEach(input => {
+    input.addEventListener("change", () => {
+      selectedSeats = [];
+      document.querySelectorAll(".seat.selected").forEach(s => s.classList.remove("selected"));
+      updateSeatDisplay();
+    });
+  });
+
+  function continueToPayment() {
+    const type = getSelectedTicketType();
+    const adults = document.getElementById("adults").value;
+    const families = document.getElementById("families").value;
+    const kids = document.getElementById("kids").value;
+
+    localStorage.setItem("selectedSeats", JSON.stringify(selectedSeats));
+    localStorage.setItem("ticketType", type);
+    localStorage.setItem("groupAdults", adults);
+    localStorage.setItem("groupFamilies", families);
+    localStorage.setItem("groupKids", kids);
+
+    alert(`Seats ${selectedSeats.join(", ")} with ${type} ticket saved. Proceeding to payment...`);
+  }
+  <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventMax</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Livvic:wght@900&family=Poppins:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+  <!-- Header section -->
+  <header>
+    <div class="logo">EventMax</div>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('concerts') }}">Concerts</a>
+      <a href="{{ url_for('sports') }}">Sports</a>
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('signup') }}">Signup</a>
+      <a href="{{ url_for('create_event') }}">Create</a>
+    </nav>
+  </header>
+
+  <!-- Search Section -->
+  <section class="search-bar">
+    <div class="container">
+      <h2>Find Your Next Live Experience</h2>
+      <div class="form-group">
+        <input type="text" id="searchInput" placeholder="Search events..." class="search-input">
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Events Section -->
+  <section class="featured">
+    <div class="container">
+      <h3>⭐ Featured Events</h3>
+      <div class="events-grid" id="eventsContainer">
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="eventmax-logo footer-logo">
+          <span class="event">Event</span>
+          <span class="max">Max</span>
+        </div>
+      </div>
+
+      <div class="footer-sections">
+        <div class="footer-section">
+          <b class="section-title">Product</b>
+          <ul class="section-list">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Career</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Special Offers</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <b class="section-title">Help</b>
+          <ul class="section-list">
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <b class="section-title">Partner</b>
+          <ul class="section-list">
+            <li><a href="#">Partner Hub</a></li>
+            <li><a href="#">Affiliates</a></li>
+            <li><a href="#">Advertise</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subscribe-section">
+        <b class="subscribe-title">Subscribe</b>
+        <div class="subscription-box">
+          <input type="email" placeholder="Email address" class="subscribe-input">
+          <button class="btn btn-secondary">→</button>
+        </div>
+      </div>
+
+      <div class="social-icons">
+        <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-terms">
+      <span><a href="#">Terms</a></span>
+      <span><a href="#">Privacy</a></span>
+      <span><a href="#">Cookies</a></span>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
