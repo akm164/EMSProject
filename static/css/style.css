@@ -278,6 +278,16 @@ select:focus {
   color: var(--text-light);
 }
 
+/* ========== This CSS is for Payment Methods Image Sizing ========== */
+.payment-method img {
+  width: 40%;
+  aspect-ratio: 2 / 1;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+
 /* ========== This CSS is for Footer ========== */
 .footer-container {
   background-color: #1a1a1a;
