@@ -64,49 +64,48 @@ EventMax is a Flask-based Event Management System that simplifies event discover
 ---
 
 ## Installation
-
+```
 1. Clone the repository  
-
-   ```
    git clone https://github.com/akm164/EMSProject.git
    cd EMSProject
-2. Create and activate a virtual environment
-  python3 -m venv venv
-  source venv/bin/activate    # macOS/Linux
-  venv\Scripts\activate       # Windows
+   
+3. Create and activate a virtual environment
+   python3 -m venv venv
+   source venv/bin/activate    # macOS/Linux
+   venv\Scripts\activate       # Windows
 
 4. Install dependencies
-  pip install -r requirements.txt
+   pip install -r requirements.txt
+```
 
 ## Configuration
-
+```
 1. Copy or rename config.py.example to config.py (if provided) or edit config.py directly.
 
 2. Set the following variables in config.py:
-    SECRET_KEY
-    DATABASE_URI
-    PayPal, Visa, and Mastercard credentials
+   SECRET_KEY
+   DATABASE_URI
+   PayPal, Visa, and Mastercard credentials
 
 3. Initialize the database:
+   flask shell
+   >>> from models import db
+   >>> db.create_all()
+   >>> exit()
+```
 
-bash
-flask shell
->>> from models import db
->>> db.create_all()
->>> exit()
-Running the Application
+## Running the Application
+```
 Development mode:
-
-bash
 python app.py
 Open your browser at http://127.0.0.1:5000/.
 
 Production mode with Gunicorn:
-
-bash
 gunicorn app:app
-Directory Structure
-plaintext
+```
+
+## Directory Structure
+```
 EMSProject/
 ├── client
 │   ├── node_modules/
@@ -143,64 +142,60 @@ EMSProject/
 │   └── instance
 │       └── event_management.db
 └── venv/
+```
 
-Database
+## Database
+```
 Uses SQLite by default for development. Update DATABASE_URI in config.py to point to PostgreSQL or another production database.
-
 Core tables and relationships:
+   Users
+   Events
+   Bookings
+   Payments
+   Reviews
+```
 
-Users
-
-Events
-
-Bookings
-
-Payments
-
-Reviews
-
-Testing
+## Testing
+```
 Run unit tests with Mocha & Chai.
-
 Import postman_collection.json into Postman for API testing.
-
 Execute end-to-end tests using Selenium.
-
-Deployment
+```
+## Deployment
+```
 Heroku (example)
-Create a Procfile at the repo root:
+1. Create a Procfile at the repo root:
+   web: gunicorn app:app
 
-plaintext
-web: gunicorn app:app
-Commit and push to Heroku:
-
-bash
-git add Procfile
-git commit -m "Configure Heroku deployment"
-git push heroku main
+2. Commit and push to Heroku:
+   git add Procfile
+   git commit -m "Configure Heroku deployment"
+   git push heroku main
 Your live app will be available at https://<your-app-name>.herokuapp.com.
+```
 
-Contributing
-Fork the repository
+## Contributing
+```
+1. Fork the repository
 
-Create a feature branch:
+2. Create a feature branch:
+   git checkout -b feature/your-feature
 
-bash
-git checkout -b feature/your-feature
-Commit your changes:
+3. Commit your changes:
+   git commit -m "Add your feature"
 
-bash
-git commit -m "Add your feature"
-Push to your branch:
+4. Push to your branch:
+   git push origin feature/your-feature
 
-bash
-git push origin feature/your-feature
-Open a Pull Request
+5. Open a Pull Request
+```
 
-License
+## License
+```
 This project is licensed under the MIT License.
+```
 
-Contact
+## Contact
+```
 Aalok Kumar Mandal – https://github.com/akm164
-
 Dr. Jack (Jie) Yang – Lecturer, CSIT314, University of Wollongong
